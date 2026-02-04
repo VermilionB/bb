@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 16px;
+}
+
+.bread-crumb-link {
+  display: flex;
+  align-items: center;
+}
+
+.bread-crumb-link:hover {
+  text-decoration: none !important;
+}

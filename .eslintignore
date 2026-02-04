@@ -1,0 +1,9 @@
+node_modules/
+dist/
+storybook-build/
+.idea
+.vscode
+.env
+src/generated/
+src/vite-env.d.ts
+src/routeTree.gen.ts

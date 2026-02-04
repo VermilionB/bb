@@ -1,0 +1,220 @@
+{
+  "nav-menu-stack": {
+    "business-partner": {
+      "name": "Деловой партнер",
+      "items": {
+        "customer-file": "Картотека клиентов"
+      }
+    },
+    "accounts": {
+      "name": "Счета",
+      "items": {
+        "accounts-file": "Картотека счетов",
+        "accounts-updating": "Обновление счетов из мастер-системы (в ручном режиме)"
+      }
+    },
+    "account-management": {
+      "name": "Ведение счетов",
+      "items": {
+        "financial-conditions-LORO": "Финансовые условия ЛОРО",
+        "financial-conditions-NOSTRO": "Финансовые условия НОСТРО",
+        "individual-account-managing": "Ведение индивидуальных финансовых условий для счета",
+        "account-management-NOSTRO": "Ведение счетов НОСТРО (лимиты, размер риска)"
+      }
+    },
+    "accounts-operations": {
+      "name": "Операции со счетами",
+      "items": {
+        "making-transactions-on-personal-account": "Совершение операций по лицевым счетам",
+        "operation-cancellation": "Сторнирование операции",
+        "personal-account": "Лицевой счет"
+      }
+    },
+    "payment-management": {
+      "name": "Управление платежами",
+      "items": {
+        "payment-management-settings-highway": "Настройка управления платежами (трасса)",
+        "payment-management-settings-reference-book": "Настройка управления платежами (справочники)",
+        "managing-outgoing-payments": "Управление исходящими платежами",
+        "managing-incoming-payments": "Управление входящими платежами"
+      }
+    },
+    "reconciliations-reports": {
+      "name": "Выверки, оперативные отчеты",
+      "items": {
+        "sum-reconciliation-UP-NOSTRO": "Сверка сумм в УП с выпиской НОСТРО",
+        "sum-reconciliation-LORO": "Сверка сумм по счетам ЛОРО",
+        "sum-reconciliation-intermediate-accounts": "Сверка сумм на промежуточных счетах",
+        "unexecuted-MT-reports": "Отчет неисполненных MT-сообщений",
+        "MT103-unclear-reports": "Отчет наличия МТ103 по невыясненным",
+        "UP-MT-reconciliation": "Сверка УП с МТ выписками",
+        "account-number-correctness-check": "Проверка корректности номера счета",
+        "limit-exceed-report-NOSTRO": "Отчет о превышении лимита по счетам НОСТРО",
+        "compliance-control": "Комплаенс-контроль"
+      }
+    },
+    "reference-books": {
+      "name": "Справочники",
+      "items": {
+        "nsi-reference-books": {
+          "name": "Справочники ЦВ НСИ НБ РБ",
+          "items": {
+            "transfer-destination-category-code": "E004 Справочник кодов категории назначения перевода",
+            "organization-identification-code": "E009 Справочник кодов идентификации организации",
+            "transfer-cancellation-code": "E016 Справочник кодов отмены перевода",
+            "transfer-status-code": " E065 Справочник кодов статусов перевода",
+            "balance-account-nb": " N001 Справочник балансовых счетов Национального банка",
+            "balance-account": "N002 Справочник балансовых счетов банков",
+            "currency": "N003 Справочник кодов и наименований валют и драгоценных металлов",
+            "exchange-rate": "N004 Справочник курсов валют",
+            "bank": "N008 Справочник банков",
+            "processing-code": "N010 Справочник кодов обработки",
+            "budget-payment-code": "N011 Справочник кодов платежей в бюджет",
+            "country-codifier": "N013 Кодификатор стран",
+            "republican-budget-account": "N015 Справочник счетов по учету средств республиканского бюджета",
+            "bank-id-code": "N029 Справочник банковских идентификационных кодов",
+            "biss-member": "N031 Справочник участников системы BISS",
+            "payment-priority-code": "N034 Справочник кодов очередностей платежа",
+            "local-budget-account": "N060 Справочник счетов по учету средств местных бюджетов",
+            "subject-statuses": "N061 Справочник статусов субъектов"
+          }
+        },
+        "bic-reference-books": {
+          "name": "Справочники БИК",
+          "items": {
+            "rf-reference-book": "Справочник БИК Российской Федерации",
+            "swift-reference-book": "Справочник участников системы SWIFT"
+          }
+        },
+        "normative-values": {
+          "name": "Нормативные величины",
+          "items": {
+            "regulatory-capital-by-calculations": "Величина нормативного капитала по корсчетам"
+          }
+        },
+        "reference-books-for-international-payments-investigation": {
+          "name": "Справочники для расследования международных платежей",
+          "items": {
+            "table-message-templates": "Таблица шаблонов сообщений",
+            "currency-precious-metals": "Справочник кодов наименований валют и драгоценных металлов",
+            "table-describing-field-57-interpretation": "Таблица описания неадекватной информации в поле 57 и ее трактовки при обработке",
+            "table-headers-transfer-amount-ranges": "Таблица заголовков диапазонов сумм переводов",
+            "table-transfer-amount-ranges": "Таблица диапазонов сумм переводов"
+          }
+        },
+        "calendar": {
+          "name": "Календарь выходных дней"
+        }
+      }
+    },
+    "e-documents": {
+      "name": "Электронные документы",
+      "items": {
+        "e-documents": "Электронные документы"
+      }
+    },
+    "front-office-e-documents": {
+      "name": "Фронт-офис: Электронные док-ты",
+      "items": {
+        "e-documents": "Электронные документы"
+      }
+    },
+    "percentage-commissions-corr-accounts": {
+      "name": "Проценты и комиссии по корр. счетам",
+      "items": {
+        "percents-fees-LORO": "Проценты и комиссии ЛОРО",
+        "percents-fees-NOSTRO": "Проценты и комиссии НОСТРО",
+        "payments-commissions-6700-account": "Оплата комиссий , начисленных через счет 6700",
+        "calculation-of-expected-income-expenses": "Расчет ожидаемых доходов/расходов"
+      }
+    },
+    "routine-procedures": {
+      "name": "Регламентные процедуры",
+      "items": {
+        "reconciliation-IIS-SC": "Сверка между IIS(ММР) и SC-ЦМФР",
+        "pre-close-checks": "Проверки перед закрытием дня",
+        "reconciliation-IIS-ODB": "Сверка счетов между IIS(ММР) и ОДБ",
+        "set-posting-date": "Установка даты проводки платежных операций",
+        "revaluation": "Переоценка",
+        "transfer-accrued-interest-LORO": "Перечисление начисленных процентов на счета ЛОРО",
+        "transfer-return-NOSTRO": "Перечисление/Возврат пассивного остатка по счетам НОСТРО",
+        "generate-attachments-statements": "Формирование приложений к выпискам по счетам: CK-файл",
+        "generate-MT940-950": "Формирование MT940/950"
+      }
+    },
+
+    "reporting": {
+      "name": "Отчетность",
+      "items": {
+        "nostro-exit-report": "Отчет о выходных НОСТРО",
+        "initial-percentage-preparation": "Подготовка нач% по корсчетам для КХД",
+        "operation-selection-criteria": "Отбор операций по критериям",
+        "operation-selection-debit-credit": "Отбор операций по дебету/кредиту",
+        "nostro-balance-report": "Отчет об остатках на счетах Ностро",
+        "mutual-nostro-balances": "Остатки по взаимным корсчетам",
+        "actual-loro-balances": "Фактические остатки на счетах ЛОРО",
+        "account-balance-report": "Отчет об остатках на счетах",
+        "individual-transfers-report": "Отчет по переводам ФЛ",
+        "turnover-and-balance-statement": "Ведомость оборотов и остатков",
+        "accrued-interest-statement": "Ведомость начисленных процентов",
+        "report-info-28216": "Информация для отчета 28216",
+        "currency-exchange-operations-report": "Отчет \"Валютно-обменные операции\"",
+        "accrued-commissions-report": "Отчет о начисленных комиссиях",
+        "nostro-account-balance-report": "Отчет об остатках по корсчетам",
+        "reporting": "Отчетность",
+        "transit-payments": "Транзитные платежи",
+        "mt950-940-excel-export": "Выгрузка входящих выписок MT950/940 в Excel",
+        "loro-correspondent-funds-volume": "Объем средств лоро-корреспондентов для внешних платежей",
+        "gpi-status-requests-journal": "Журнал количества запросов статуса ПП в GPI",
+        "transfer-volumes-by-country-report": "Отчет по объемам переводов в разрезе стран",
+        "statistical-loro-report": "Отчет статистический ЛОРО",
+        "statistical-nostro-report": "Отчет статистический НОСТРО",
+        "nostro-payment-report": "Отчет исп.плат. НОСТРО",
+        "outgoing-payments-report": "Отчет по исходящим платежам"
+      }
+    },
+
+    "operational-archive": {
+      "name": "Оперативный архив",
+      "items": {
+        "operational-archive": "Оперативный архив"
+      }
+    },
+    "system-monitoring": {
+      "name": "Мониторинг системы",
+      "items": {
+        "system-monitoring": "Мониторинг системы"
+      }
+    },
+    "compliance-control": {
+      "name": "Комплаенс-контроль",
+      "items": {
+        "compliance-control-payments-reference-books": "Комплаенс-контроль платежей на справочники",
+        "compliance-control-payments-databases": "Комплаенс-контроль платежей по базам",
+        "compliance-control-monitoring": "Комплаенс-контроль (мониторинг)"
+      }
+    },
+
+    "payment-transport-system": {
+      "name": "Платежно-транспортная система",
+      "items": {
+        "payment-transport-system": "Платежно-транспортная система",
+        "payment-transport-system-settings": "Настройка ПТС",
+        "transport-handlers": "Транспорт.Обработчики",
+        "api-handler-management": "IIS-BPS-ПР-Справочники_API-сервис v1.0 IIS-PTS-ПР-CBCB v1.0"
+      }
+    },
+    "payment-investigation": {
+      "name": "Расследование платежей",
+      "items": {
+        "cases": "Кейсы",
+        "messages": "Сообщения",
+        "create-message": "Создать сообщение",
+        "analytics": "Аналитика"
+      }
+    },
+
+    "statuses": "Журнал загрузок",
+    "logout": "Выход"
+  }
+}

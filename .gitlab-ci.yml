@@ -1,0 +1,175 @@
+#workflow:
+#  rules:
+#    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "dev"'
+#      variables:
+#        RUNNER_TAG: "sca-iis-dev"
+#    - if: '$CI_COMMIT_BRANCH == "dev"'
+#      variables:
+#        RUNNER_TAG: "sca-iis-dev"
+#    - if: '$CI_COMMIT_TAG'
+#      variables:
+#        RUNNER_TAG: "sca-iis-dev"
+
+variables:
+  #DOCKER_HOST: tcp://docker:2375/
+  DOCKER_DRIVER: overlay2
+  RUNNER_TAG: "sca-iis-dev"
+  #VERSION_TAG: latest
+
+
+before_script:
+ # - docker info
+  - docker compose version
+
+stages:
+  - build
+  - push
+  - deploy
+  - cleanup
+
+default:
+  tags:
+    - $RUNNER_TAG
+
+
+build_dev_job:
+  stage: build
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "dev"'
+      when: on_success
+    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "dev"'
+      when: on_success
+    - if: '$CI_COMMIT_TAG'
+      when: on_success
+    - when: manual
+
+  script:
+    - echo "The job's stage is '$CI_JOB_STAGE'"
+    - echo "The job's REGISTRY is '$CI_REGISTRY'"
+    - echo "The job's REGISTRY IMAGE is '$CI_REGISTRY_IMAGE'"
+    - echo "The job's CI PIPELINE ID is '$CI_PIPELINE_ID'"
+    - pwd
+    - cp ~/iis_configs/$CI_PROJECT_NAME/.* . -a -f #-v
+    - cp ~/iis_configs/$CI_PROJECT_NAME/* . -a -f #-v
+    - docker compose down --rmi all || true
+    - docker compose build
+
+
+build_test_job:
+  stage: build
+  rules:
+    - when: manual
+
+  script:
+    - echo "The job's stage is '$CI_JOB_STAGE'"
+    - echo "The job's REGISTRY is '$CI_REGISTRY'"
+    - echo "The job's REGISTRY IMAGE is '$CI_REGISTRY_IMAGE'"
+    - echo "The job's CI PIPELINE ID is '$CI_PIPELINE_ID'"
+    - pwd
+    - cp ~/iis_configs/$CI_PROJECT_NAME/.* . -a -f #-v
+    - cp ~/iis_configs/$CI_PROJECT_NAME/* . -a -f #-v
+    - docker build --build-arg PORT=3000 --build-arg VITE_API_URL=http://sca-iis-t.bb.asb:8080 -t $CI_REGISTRY_IMAGE:test-$CI_COMMIT_TAG$CI_PIPELINE_ID .
+
+push_dev_job:
+  stage: push
+  variables:
+    GIT_STRATEGY: none
+  needs:
+    - build_dev_job
+  script:
+    - echo "Pushing Docker image to local registry..."
+    - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token --password-stdin git.asb.by:5050
+    - |
+       if [ -n "$CI_COMMIT_TAG" ]; then
+       echo "Commit tags found: $CI_COMMIT_TAG"
+        docker tag $CI_PROJECT_NAME $CI_REGISTRY_IMAGE:latest-$CI_COMMIT_BRANCH-$CI_COMMIT_TAG
+        docker push $CI_REGISTRY_IMAGE:latest-$CI_COMMIT_BRANCH-$CI_COMMIT_TAG
+        docker rmi $CI_REGISTRY_IMAGE:latest-$CI_COMMIT_BRANCH-$CI_COMMIT_TAG
+       else
+        echo "Commit tags not found"
+        docker tag $CI_PROJECT_NAME $CI_REGISTRY_IMAGE:latest-$CI_COMMIT_BRANCH
+        docker push $CI_REGISTRY_IMAGE:latest-$CI_COMMIT_BRANCH
+        docker rmi $CI_REGISTRY_IMAGE:latest-$CI_COMMIT_BRANCH
+       fi
+
+
+
+push_test_job:
+  stage: push
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - echo "Pushing Docker image to local registry..."
+    - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token --password-stdin git.asb.by:5050
+    - docker push $CI_REGISTRY_IMAGE:test-$CI_COMMIT_TAG$CI_PIPELINE_ID
+    - docker rmi $CI_REGISTRY_IMAGE:test-$CI_COMMIT_TAG$CI_PIPELINE_ID
+  needs:
+    - build_test_job
+
+
+
+deploy_dev_job:
+  stage: deploy
+  variables:
+    GIT_STRATEGY: none
+
+  script:
+    - cp ~/iis_configs/$CI_PROJECT_NAME/.* . -a -f #-v
+    - cp ~/iis_configs/$CI_PROJECT_NAME/* . -a -f #-v
+    - echo "Pull Docker image from registry..."
+    - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token --password-stdin git.asb.by:5050
+    - docker compose down --rmi all || true
+    - |
+       if [ -n "$CI_COMMIT_TAG" ]; then
+       echo "Commit tags found: $CI_COMMIT_TAG"      
+        docker pull $CI_REGISTRY_IMAGE:latest-$CI_COMMIT_BRANCH-$CI_COMMIT_TAG       
+        docker tag $CI_REGISTRY_IMAGE:latest-$CI_COMMIT_BRANCH-$CI_COMMIT_TAG $CI_PROJECT_NAME
+        docker rmi $CI_REGISTRY_IMAGE:latest-$CI_COMMIT_BRANCH-$CI_COMMIT_TAG
+
+       else
+        echo "Commit tags not found"
+        docker pull $CI_REGISTRY_IMAGE:latest-$CI_COMMIT_BRANCH
+        docker tag $CI_REGISTRY_IMAGE:latest-$CI_COMMIT_BRANCH $CI_PROJECT_NAME
+        docker rmi $CI_REGISTRY_IMAGE:latest-$CI_COMMIT_BRANCH
+       fi
+
+    - docker compose up -d
+  needs:
+    - build_dev_job
+    - push_dev_job
+
+
+deploy_test_job:
+  stage: deploy
+  tags:
+    - "sca-iis-t"
+  variables:
+    GIT_STRATEGY: none
+
+  script:
+   # - cp ~/iis_configs_test/$CI_PROJECT_NAME/.* . -a -f #-v
+   # - cp ~/iis_configs_test/$CI_PROJECT_NAME/* . -a -f #-v
+    - docker compose down --rmi all || true
+    - echo "Pull Docker image from registry..."
+    - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token --password-stdin git.asb.by:5050
+    - docker pull $CI_REGISTRY_IMAGE:test-$CI_COMMIT_TAG$CI_PIPELINE_ID
+    - docker tag $CI_REGISTRY_IMAGE:test-$CI_COMMIT_TAG$CI_PIPELINE_ID $CI_PROJECT_NAME
+    - docker rmi $CI_REGISTRY_IMAGE:test-$CI_COMMIT_TAG$CI_PIPELINE_ID
+    - docker compose -f ~/iis_configs_test/$CI_PROJECT_NAME/docker-compose.yml up -d
+  needs:
+    - push_test_job
+  rules:
+    - if: '$CI_JOB_STATUS == "success"'
+      when: on_success
+    - when: manual
+
+
+cleanup_job:
+  stage: cleanup
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - echo "Build dir is $CI_PROJECT_DIR"
+   #- rm -rf $CI_PROJECT_DIR
+  needs:
+    - deploy_dev_job

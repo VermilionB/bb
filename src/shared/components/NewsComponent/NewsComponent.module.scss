@@ -1,0 +1,19 @@
+.content {
+  padding: 5px;
+}
+
+.chevron {
+  color: #FFF;
+}
+
+.scroll-area {
+  overflow-y: auto;
+  height: 80vh;
+}
+
+
+@media screen and (height <= 830px) {
+  .scroll-area {
+    height: 70vh;
+  }
+}

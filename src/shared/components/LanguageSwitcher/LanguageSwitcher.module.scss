@@ -1,0 +1,14 @@
+.switcher {
+	height: 52px;
+}
+
+.switcher:hover {
+	background-color: #004830;
+	cursor: pointer;
+}
+
+.switcher-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

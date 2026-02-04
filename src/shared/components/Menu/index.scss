@@ -1,0 +1,217 @@
+.menu {
+  overflow-y: scroll;
+  scrollbar-width: none;
+  transition: width 0.3s ease, opacity 0.3s ease;
+  width: 72px;
+  background: #006040;
+  border: none !important;
+}
+
+.menu.open {
+  width: 350px;
+}
+
+.menu::-webkit-scrollbar {
+  display: none;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  width: 100% !important;
+  height: 54px;
+  background: transparent;
+}
+
+.logout {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  background: #006040;
+  padding: 14px 24px;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 100%;
+  vertical-align: middle;
+  color: white;
+
+  &:hover {
+    color: white;
+    background: #004830;
+  }
+}
+
+.logout-icon {
+  width: 20px;
+  height: 20px;
+}
+
+//noinspection ALL
+.mainMenuItem {
+  background-color: #006040;
+  color: white;
+  border-radius: 0 !important;
+
+}
+
+//noinspection ALL
+.subMenuItem {
+  background-color: #fff;
+  color: #555;
+
+  &:hover {
+    background-color: #F1F3F5;
+  }
+}
+
+//noinspection ALL
+.mainMenuTitle {
+  display: flex;
+  gap: 16px;
+  padding-left: 14px;
+  height: 54px;
+  width: 100% !important;
+}
+
+//noinspection ALL
+.mainMenuText {
+  text-wrap: wrap;
+  line-height: 100%;
+  font-size: 16px;
+  font-family: Roboto, sans-serif;
+  margin-left: 65px;
+  width: 180px !important;
+  position: absolute;
+}
+
+
+
+
+
+.icon {
+  width: 40px !important;
+  display: flex;
+  justify-content: center;
+  font-family: Roboto, sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  position: absolute;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 0;
+  vertical-align: middle;
+  text-wrap: wrap !important;
+}
+
+.search {
+  border-radius: 2px;
+  border: 1px solid #999;
+  outline: none;
+  height: 36px;
+  padding: 12px;
+  width: 100%;
+}
+
+
+//noinspection ALL
+.subMenuTitle {
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  text-wrap: wrap;
+}
+
+//noinspection ALL
+.ant-menu-submenu-disabled > .ant-menu-submenu-title > .ant-menu-title-content > .mainMenuTitle {
+  background: #006040 !important;
+
+}
+
+//noinspection ALL
+.ant-menu-submenu-disabled > .ant-menu-submenu-title > .ant-menu-title-content > .mainMenuTitle > .mainMenuText {
+  color: #EBEDF0 !important;
+  opacity: 0.4;
+}
+
+//noinspection ALL
+.ant-menu-submenu-disabled > .ant-menu-submenu-title > .ant-menu-title-content > .mainMenuTitle > .icon {
+  color: #EBEDF0 !important;
+  opacity: 0.4;
+}
+
+//noinspection ALL
+.ant-menu-submenu > .ant-menu-submenu-title > .ant-menu-title-content > .mainMenuTitle {
+  background: #006040 !important;
+  color: #FFF !important;
+
+  &:hover {
+    background: #004830 !important;
+    color: #FFF !important;
+  }
+}
+
+//noinspection ALL
+.ant-menu-submenu > .ant-menu-submenu-title > .ant-menu-title-content > .subMenuTitle {
+  min-height: 34px;
+  height: inherit !important;
+  padding-left: 12px;
+}
+
+
+//noinspection ALL
+.ant-menu-submenu-selected > .ant-menu-submenu-title > .ant-menu-title-content > .mainMenuTitle {
+  color: #333 !important;
+  background: #FFF !important;
+
+}
+
+//noinspection ALL
+.ant-menu-submenu-selected > .ant-menu-submenu-title > .ant-menu-title-content > .subMenuTitle {
+  color: #333 !important;
+  background: #F1F3F5 !important;
+}
+
+
+.ant-menu-title-content {
+  width: 100%;
+}
+
+
+.ant-menu-item-only-child {
+  padding: 0 !important;
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  margin: 0 !important;
+  line-height: 18px !important;
+  min-height: 34px;
+  height: inherit !important;
+  margin-bottom: 2px !important;
+
+  &:hover {
+    background: white !important;
+  }
+}
+
+//noinspection ALL
+.topSearch {
+  position: sticky !important;
+  top: 0px;
+  z-index: 999 !important;
+  background: white;
+  padding-top: 12px !important;
+}

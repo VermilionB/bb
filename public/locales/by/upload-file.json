@@ -1,0 +1,12 @@
+{
+  "upload-file": {
+    "modal-title": "Абнавіць табліцу",
+    "dropzone-accept": "Памесціце файл сюды",
+    "dropzone-reject": "Неправільны файл",
+    "dropzone-idle": "Загрузіце файл справочніка",
+    "dropzone-description": "Перацягніце ў гэтую вобласць файл справочніка.",
+    "upload-button": "Адправіць на загрузку",
+    "upload-error-title": "Памылка загрузкі",
+    "upload-error-message": "Адбылася невядомая памылка."
+  }
+}

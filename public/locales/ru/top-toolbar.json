@@ -1,0 +1,10 @@
+{
+  "top-toolbar": {
+    "update-table": "Обновить из файла",
+    "create-new-row": "Добавить",
+    "create-new-row-common": "Добавить запись",
+    "pre-filling": "Предзаполнение",
+    "sync-clients": "Обновление клиентов из SC-Bank.360.Corporate",
+    "sync-accounts": "Обновление счетов из SC-Bank.360.Corporate"
+  }
+}

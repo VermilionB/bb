@@ -1,0 +1,17 @@
+{
+  "nav-menu-stack": {
+    "directories": "Справочнікі",
+    "statuses": "Часопіс загрузак",
+    "payment-management": "Кіраванне плацяжамі",
+    "account-management": "Вядзенне рахункаў НОСТРО/ЛОРО",
+    "until-finding-out": "Рахунак \"Да высвятлення\"",
+    "configuration-tables": "Наладкавыя табліцы",
+    "reports-stats": "Справаздачы/Статыстыка",
+    "managing-review-requests": "GPI: Кіраванне запытамі на водгук",
+    "investigation-of-payments": "Расследавання плацяжоў",
+    "analytics": "Аналітыка",
+    "journal": "Журнал",
+    "logout": "Выхад",
+    "help": "Падтрымка"
+  }
+}

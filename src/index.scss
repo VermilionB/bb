@@ -1,0 +1,105 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, Roboto, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: rgb(255 255 255 / 87%);
+  background-color: #242424;
+  font-synthesis: none;
+  text-rendering: optimizelegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  text-decoration: inherit;
+}
+
+//noinspection ALL
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+//noinspection ALL
+input[type="number"] {
+  appearance: textfield;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  justify-content: center;
+}
+
+//noinspection ALL
+.mantine-Menu-itemSection {
+  display: none;
+}
+
+//noinspection ALL
+.mantine-Menu-itemLabel {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: max-content;
+  height: 34px;
+  padding-left: 10px;
+}
+
+//noinspection ALL
+.mantine-Menu-item {
+  margin: 0;
+  padding: 0;
+  width: 100% !important;
+}
+
+//noinspection ALL
+.mantine-Menu-item:hover {
+  border-radius: 0;
+  width: 100% !important;
+}
+
+//noinspection ALL
+.mantine-Popover-dropdown {
+  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 20%) !important;
+}
+
+//noinspection ALL
+.MRT_TablePaper-module_root__q0v5L {
+  border-radius: 0 !important;
+}
+
+//noinspection ALL
+.mantine-Avatar-placeholder {
+  background: white;
+}
+
+//noinspection ALL
+.ant-menu-sub {
+  max-height: 364px !important;
+  width: 450px !important;
+  border-radius: 0 !important;
+}
+
+//noinspection ALL
+.ant-menu-submenu-popup {
+  padding-left: 0 !important;
+}
+
+//noinspection ALL
+.ant-menu-submenu-title {
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+
+  &:hover {
+    background: transparent !important;
+  }
+
+}
+

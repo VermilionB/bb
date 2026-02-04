@@ -1,0 +1,586 @@
+[
+  {
+    "icon": "BP",
+    "key": "menu-business-partner",
+    "name": "nav-menu-stack:nav-menu-stack.business-partner.name",
+    "items": [
+      {
+        "key": "business-partner",
+        "name": "nav-menu-stack:nav-menu-stack.business-partner.items.customer-file",
+        "href": "/business-partner/customer-file"
+      }
+    ]
+  },
+  {
+    "icon": "LS",
+    "key": "menu-accounts",
+    "name": "nav-menu-stack:nav-menu-stack.accounts.name",
+    "items": [
+      {
+        "key": "business-partner-account",
+        "name": "nav-menu-stack:nav-menu-stack.accounts.items.accounts-file",
+        "href": "/business-partner-accounts/accounts-file"
+      }
+    ]
+  },
+  {
+    "icon": "MCA",
+    "key": "account-management",
+    "name": "nav-menu-stack:nav-menu-stack.account-management.name",
+    "items": [
+      {
+        "key": "financial-conditions-LORO",
+        "name": "nav-menu-stack:nav-menu-stack.account-management.items.financial-conditions-LORO",
+        "href": "/account-management/financial-conditions-LORO"
+      },
+      {
+        "key": "financial-conditions-NOSTRO",
+        "name": "nav-menu-stack:nav-menu-stack.account-management.items.financial-conditions-NOSTRO",
+        "href": "/account-management/financial-conditions-NOSTRO"
+      },
+      {
+        "key": "individual-account-managing",
+        "name": "nav-menu-stack:nav-menu-stack.account-management.items.individual-account-managing",
+        "href": "/account-management/individual-account-managing"
+      },
+      {
+        "key": "account-management-NOSTRO",
+        "name": "nav-menu-stack:nav-menu-stack.account-management.items.account-management-NOSTRO",
+        "href": "/account-management/account-management-NOSTRO"
+      }
+    ]
+  },
+  {
+    "icon": "TCA",
+    "key": "accounts-operations",
+    "name": "nav-menu-stack:nav-menu-stack.accounts-operations.name",
+    "items": [
+      {
+        "key": "making-transactions-on-personal-account",
+        "name": "nav-menu-stack:nav-menu-stack.accounts-operations.items.making-transactions-on-personal-account",
+        "href": "/accounts-operations/making-transactions-on-personal-account"
+      },
+      {
+        "key": "operation-cancellation",
+        "name": "nav-menu-stack:nav-menu-stack.accounts-operations.items.operation-cancellation",
+        "href": "/accounts-operations/operation-cancellation"
+      },
+      {
+        "key": "personal-account",
+        "name": "nav-menu-stack:nav-menu-stack.accounts-operations.items.personal-account",
+        "href": "/accounts-operations/personal-account"
+      }
+    ]
+  },
+  {
+    "icon": "PM",
+    "key": "payment-management",
+    "name": "nav-menu-stack:nav-menu-stack.payment-management.name",
+    "items": [
+      {
+        "key": "payment-management-settings-highway",
+        "name": "nav-menu-stack:nav-menu-stack.payment-management.items.payment-management-settings-highway",
+        "href": "/payment-management/payment-management-settings-highway"
+      },
+      {
+        "key": "payment-management-settings-reference-book",
+        "name": "nav-menu-stack:nav-menu-stack.payment-management.items.payment-management-settings-reference-book",
+        "href": "/payment-management/payment-management-settings-reference-book"
+      },
+      {
+        "key": "managing-outgoing-payments",
+        "name": "nav-menu-stack:nav-menu-stack.payment-management.items.managing-outgoing-payments",
+        "href": "/payment-management/managing-outgoing-payments"
+      },
+      {
+        "key": "managing-incoming-payments",
+        "name": "nav-menu-stack:nav-menu-stack.payment-management.items.managing-incoming-payments",
+        "href": "/payment-management/managing-incoming-payments"
+      }
+    ]
+  },
+  {
+    "icon": "RCA",
+    "key": "reconciliations-reports",
+    "name": "nav-menu-stack:nav-menu-stack.reconciliations-reports.name",
+    "items": [
+      {
+        "key": "sum-reconciliation-UP-NOSTRO",
+        "name": "nav-menu-stack:nav-menu-stack.reconciliations-reports.items.sum-reconciliation-UP-NOSTRO",
+        "href": "/reconciliations-reports/sum-reconciliation-UP-NOSTRO"
+      },
+      {
+        "key": "sum-reconciliation-LORO",
+        "name": "nav-menu-stack:nav-menu-stack.reconciliations-reports.items.sum-reconciliation-LORO",
+        "href": "/reconciliations-reports/sum-reconciliation-LORO"
+      },
+      {
+        "key": "sum-reconciliation-intermediate-accounts",
+        "name": "nav-menu-stack:nav-menu-stack.reconciliations-reports.items.sum-reconciliation-intermediate-accounts",
+        "href": "/reconciliations-reports/sum-reconciliation-intermediate-accounts"
+      },
+      {
+        "key": "unexecuted-MT-reports",
+        "name": "nav-menu-stack:nav-menu-stack.reconciliations-reports.items.unexecuted-MT-reports",
+        "href": "/reconciliations-reports/unexecuted-MT-reports"
+      },
+      {
+        "key": "MT103-unclear-reports",
+        "name": "nav-menu-stack:nav-menu-stack.reconciliations-reports.items.MT103-unclear-reports",
+        "href": "/reconciliations-reports/MT103-unclear-reports"
+      },
+      {
+        "key": "UP-MT-reconciliation",
+        "name": "nav-menu-stack:nav-menu-stack.reconciliations-reports.items.UP-MT-reconciliation",
+        "href": "/reconciliations-reports/UP-MT-reconciliation"
+      },
+      {
+        "key": "account-number-correctness-check",
+        "name": "nav-menu-stack:nav-menu-stack.reconciliations-reports.items.account-number-correctness-check",
+        "href": "/reconciliations-reports/account-number-correctness-check"
+      },
+      {
+        "key": "limit-exceed-report-NOSTRO",
+        "name": "nav-menu-stack:nav-menu-stack.reconciliations-reports.items.limit-exceed-report-NOSTRO",
+        "href": "/reconciliations-reports/limit-exceed-report-NOSTRO"
+      },
+      {
+        "key": "compliance-control",
+        "name": "nav-menu-stack:nav-menu-stack.reconciliations-reports.items.compliance-control",
+        "href": "/reconciliations-reports/compliance-control"
+      }
+    ]
+  },
+  {
+    "icon": "BPS",
+    "key": "menu-reference-books",
+    "name": "nav-menu-stack:nav-menu-stack.reference-books.name",
+    "items": [
+      {
+        "search": true,
+        "key": "menu-nsi-reference-books",
+        "name": "nav-menu-stack:nav-menu-stack.reference-books.items.nsi-reference-books.name",
+        "items": [
+          {
+            "key": "e004",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.nsi-reference-books.items.transfer-destination-category-code",
+            "href": "/reference-book/nsi__transfer-destination-category-code"
+          },
+          {
+            "key": "e009",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.nsi-reference-books.items.organization-identification-code",
+            "href": "/reference-book/nsi__organization-identification-code"
+          },
+          {
+            "key": "e016",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.nsi-reference-books.items.transfer-cancellation-code",
+            "href": "/reference-book/nsi__transfer-cancellation-code"
+          },
+          {
+            "key": "e065",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.nsi-reference-books.items.transfer-status-code",
+            "href": "/reference-book/nsi__transfer-status-code"
+          },
+          {
+            "key": "n001",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.nsi-reference-books.items.balance-account-nb",
+            "href": "/reference-book/nsi__balance-account-nb"
+          },
+          {
+            "key": "n002",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.nsi-reference-books.items.balance-account",
+            "href": "/reference-book/nsi__balance-account"
+          },
+          {
+            "key": "n003",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.nsi-reference-books.items.currency",
+            "href": "/reference-book/nsi__currency"
+          },
+          {
+            "key": "n004",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.nsi-reference-books.items.exchange-rate",
+            "href": "/reference-book/nsi__exchange-rate"
+          },
+          {
+            "key": "n008",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.nsi-reference-books.items.bank",
+            "href": "/reference-book/nsi__bank"
+          },
+          {
+            "key": "n010",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.nsi-reference-books.items.processing-code",
+            "href": "/reference-book/nsi__processing-code"
+          },
+          {
+            "key": "n011",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.nsi-reference-books.items.budget-payment-code",
+            "href": "/reference-book/nsi__budget-payment-code"
+          },
+          {
+            "key": "n013",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.nsi-reference-books.items.country-codifier",
+            "href": "/reference-book/nsi__country-codifier"
+          },
+          {
+            "key": "n015",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.nsi-reference-books.items.republican-budget-account",
+            "href": "/reference-book/nsi__republican-budget-account"
+          },
+          {
+            "key": "n029",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.nsi-reference-books.items.bank-id-code",
+            "href": "/reference-book/nsi__bank-id-code"
+          },
+          {
+            "key": "n031",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.nsi-reference-books.items.biss-member",
+            "href": "/reference-book/nsi__biss-member"
+          },
+          {
+            "key": "n034",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.nsi-reference-books.items.payment-priority-code",
+            "href": "/reference-book/nsi__payment-priority-code"
+          },
+          {
+            "key": "n060",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.nsi-reference-books.items.local-budget-account",
+            "href": "/reference-book/nsi__local-budget-account"
+          },
+          {
+            "key": "n061",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.nsi-reference-books.items.subject-statuses",
+            "href": "/reference-book/nsi__subject-statuses"
+          }
+        ]
+      },
+      {
+        "key": "menu-bic-reference-books",
+        "name": "nav-menu-stack:nav-menu-stack.reference-books.items.bic-reference-books.name",
+        "items": [
+          {
+            "key": "rf",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.bic-reference-books.items.rf-reference-book",
+            "href": "/reference-book/rf"
+          },
+          {
+            "key": "swift",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.bic-reference-books.items.swift-reference-book",
+            "href": "/reference-book/swift"
+          }
+        ]
+      },
+      {
+        "key": "normative-values",
+        "name": "nav-menu-stack:nav-menu-stack.reference-books.items.normative-values.name",
+        "items": [
+          {
+            "key": "ф",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.normative-values.items.regulatory-capital-by-calculations",
+            "href": "/фвы"
+          }
+        ]
+      },
+      {
+        "key": "reference-books-for-international-payments-investigation",
+        "name": "nav-menu-stack:nav-menu-stack.reference-books.items.reference-books-for-international-payments-investigation.name",
+        "items": [
+          {
+            "key": "table-message-templates",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.reference-books-for-international-payments-investigation.items.table-message-templates",
+            "href": "/international-payments/table-message-templates"
+          },
+          {
+            "key": "currency-precious-metals",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.reference-books-for-international-payments-investigation.items.currency-precious-metals",
+            "href": "/international-payments/currency-precious-metals"
+          },
+          {
+            "key": "table-describing-field-57-interpretation",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.reference-books-for-international-payments-investigation.items.table-describing-field-57-interpretation",
+            "href": "/international-payments/table-describing-field-57-interpretation"
+          },
+          {
+            "key": "table-headers-transfer-amount-ranges",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.reference-books-for-international-payments-investigation.items.table-headers-transfer-amount-ranges",
+            "href": "/international-payments/table-headers-transfer-amount-ranges"
+          },
+          {
+            "key": "table-transfer-amount-ranges",
+            "name": "nav-menu-stack:nav-menu-stack.reference-books.items.reference-books-for-international-payments-investigation.items.table-transfer-amount-ranges",
+            "href": "/international-payments/table-transfer-amount-ranges"
+          }
+        ]
+      },
+      {
+        "key": "calendar",
+        "name": "nav-menu-stack:nav-menu-stack.reference-books.items.calendar.name",
+        "href": "/reference-book/calendar"
+      }
+    ]
+  },
+  {
+    "icon": "ED",
+    "key": "e-documents",
+    "name": "nav-menu-stack:nav-menu-stack.e-documents.name",
+    "items": [
+      {
+        "key": "e-documents",
+        "name": "nav-menu-stack:nav-menu-stack.e-documents.items.e-documents",
+        "href": "/e-documents/e-documents"
+      }
+    ]
+  },
+  {
+    "icon": "FO-ED",
+    "key": "front-office-e-documents",
+    "name": "nav-menu-stack:nav-menu-stack.front-office-e-documents.name",
+    "items": [
+      {
+        "key": "e-documents",
+        "name": "nav-menu-stack:nav-menu-stack.front-office-e-documents.items.e-documents",
+        "href": "/front-office-e-documents/e-documents"
+      }
+    ]
+  },
+  {
+    "icon": "BCA",
+    "key": "percentage-commissions-corr-accounts",
+    "name": "nav-menu-stack:nav-menu-stack.percentage-commissions-corr-accounts.name",
+    "items": [
+      {
+        "key": "percents-fees-LORO",
+        "name": "nav-menu-stack:nav-menu-stack.percentage-commissions-corr-accounts.items.percents-fees-LORO",
+        "href": "/percentage-commissions-corr-accounts/percents-fees-LORO"
+      },
+      {
+        "key": "percents-fees-NOSTRO",
+        "name": "nav-menu-stack:nav-menu-stack.percentage-commissions-corr-accounts.items.percents-fees-NOSTRO",
+        "href": "/percentage-commissions-corr-accounts/percents-fees-NOSTRO"
+      },
+      {
+        "key": "payments-commissions-6700-account",
+        "name": "nav-menu-stack:nav-menu-stack.percentage-commissions-corr-accounts.items.payments-commissions-6700-account",
+        "href": "/percentage-commissions-corr-accounts/payments-commissions-6700-account"
+      },
+      {
+        "key": "calculation-of-expected-income-expenses",
+        "name": "nav-menu-stack:nav-menu-stack.percentage-commissions-corr-accounts.items.calculation-of-expected-income-expenses",
+        "href": "/percentage-commissions-corr-accounts/calculation-of-expected-income-expenses"
+      }
+    ]
+  },
+  {
+    "icon": "RP",
+    "key": "routine-procedures",
+    "name": "nav-menu-stack:nav-menu-stack.routine-procedures.name",
+    "items": [
+      {
+        "key": "reconciliation-IIS-SC",
+        "name": "nav-menu-stack:nav-menu-stack.routine-procedures.items.reconciliation-IIS-SC",
+        "href": "/routine-procedures/reconciliation-IIS-SC"
+      },
+      {
+        "key": "pre-close-checks",
+        "name": "nav-menu-stack:nav-menu-stack.routine-procedures.items.pre-close-checks",
+        "href": "/routine-procedures/pre-close-checks"
+      },
+      {
+        "key": "reconciliation-IIS-ODB",
+        "name": "nav-menu-stack:nav-menu-stack.routine-procedures.items.reconciliation-IIS-ODB",
+        "href": "/routine-procedures/reconciliation-IIS-ODB"
+      },
+      {
+        "key": "set-posting-date",
+        "name": "nav-menu-stack:nav-menu-stack.routine-procedures.items.set-posting-date",
+        "href": "/routine-procedures/set-posting-date"
+      },
+      {
+        "key": "revaluation",
+        "name": "nav-menu-stack:nav-menu-stack.routine-procedures.items.revaluation",
+        "href": "/routine-procedures/revaluation"
+      },
+      {
+        "key": "transfer-accrued-interest-LORO",
+        "name": "nav-menu-stack:nav-menu-stack.routine-procedures.items.transfer-accrued-interest-LORO",
+        "href": "/routine-procedures/transfer-accrued-interest-LORO"
+      },
+      {
+        "key": "transfer-return-NOSTRO",
+        "name": "nav-menu-stack:nav-menu-stack.routine-procedures.items.transfer-return-NOSTRO",
+        "href": "/routine-procedures/transfer-return-NOSTRO"
+      },
+      {
+        "key": "generate-attachments-statements",
+        "name": "nav-menu-stack:nav-menu-stack.routine-procedures.items.generate-attachments-statements",
+        "href": "/routine-procedures/generate-attachments-statements"
+      },
+      {
+        "key": "generate-MT940-950",
+        "name": "nav-menu-stack:nav-menu-stack.routine-procedures.items.generate-MT940-950",
+        "href": "/routine-procedures/generate-MT940-950"
+      }
+    ]
+  },
+  {
+    "icon": "RCA",
+    "key": "reporting",
+    "name": "nav-menu-stack:nav-menu-stack.reporting.name",
+    "items": [
+      {
+        "key": "nostro-exit-report",
+        "name": "nav-menu-stack:nav-menu-stack.reporting.items.nostro-exit-report",
+        "href": "/reporting/nostro-exit-report"
+      },
+      {
+        "key": "initial-percentage-preparation",
+        "name": "nav-menu-stack:nav-menu-stack.reporting.items.initial-percentage-preparation",
+        "href": "/reporting/initial-percentage-preparation"
+      },
+      {
+        "key": "operation-selection-criteria",
+        "name": "nav-menu-stack:nav-menu-stack.reporting.items.operation-selection-criteria",
+        "href": "/reporting/operation-selection-criteria"
+      },
+      {
+        "key": "operation-selection-debit-credit",
+        "name": "nav-menu-stack:nav-menu-stack.reporting.items.operation-selection-debit-credit",
+        "href": "/reporting/operation-selection-debit-credit"
+      },
+      {
+        "key": "nostro-balance-report",
+        "name": "nav-menu-stack:nav-menu-stack.reporting.items.nostro-balance-report",
+        "href": "/reporting/nostro-balance-report"
+      },
+      {
+        "key": "mutual-nostro-balances",
+        "name": "nav-menu-stack:nav-menu-stack.reporting.items.mutual-nostro-balances",
+        "href": "/reporting/mutual-nostro-balances"
+      },
+      {
+        "key": "actual-loro-balances",
+        "name": "nav-menu-stack:nav-menu-stack.reporting.items.actual-loro-balances",
+        "href": "/reporting/actual-loro-balances"
+      },
+      {
+        "key": "account-balance-report",
+        "name": "nav-menu-stack:nav-menu-stack.reporting.items.account-balance-report",
+        "href": "/reporting/account-balance-report"
+      },
+      {
+        "key": "individual-transfers-report",
+        "name": "nav-menu-stack:nav-menu-stack.reporting.items.individual-transfers-report",
+        "href": "/reporting/individual-transfers-report"
+      }
+    ]
+  },
+  {
+    "icon": "OA",
+    "key": "operational-archive",
+    "name": "nav-menu-stack:nav-menu-stack.operational-archive.name",
+    "items": [
+      {
+        "key": "operational-archive",
+        "name": "nav-menu-stack:nav-menu-stack.operational-archive.items.operational-archive",
+        "href": "/operational-archive/operational-archive"
+      }
+    ]
+  },
+  {
+    "icon": "SM",
+    "key": "system-monitoring",
+    "name": "nav-menu-stack:nav-menu-stack.system-monitoring.name",
+    "items": [
+      {
+        "key": "system-monitoring",
+        "name": "nav-menu-stack:nav-menu-stack.system-monitoring.items.system-monitoring",
+        "href": "/system-monitoring/system-monitoring"
+      }
+    ]
+  },
+  {
+    "icon": "CC",
+    "key": "compliance-control",
+    "name": "nav-menu-stack:nav-menu-stack.compliance-control.name",
+    "items": [
+      {
+        "key": "compliance-control-payments-reference-books",
+        "name": "nav-menu-stack:nav-menu-stack.compliance-control.items.compliance-control-payments-reference-books",
+        "href": "/compliance-control/compliance-control-payments-reference-books"
+      },
+      {
+        "key": "compliance-control-payments-databases",
+        "name": "nav-menu-stack:nav-menu-stack.compliance-control.items.compliance-control-payments-databases",
+        "href": "/compliance-control/compliance-control-payments-databases"
+      },
+      {
+        "key": "compliance-control-monitoring",
+        "name": "nav-menu-stack:nav-menu-stack.compliance-control.items.compliance-control-monitoring",
+        "href": "/compliance-control/compliance-control-monitoring"
+      }
+    ]
+  },
+  {
+    "icon": "PTS",
+    "key": "payment-transport-system",
+    "name": "nav-menu-stack:nav-menu-stack.payment-transport-system.name",
+    "items": [
+      {
+        "key": "payment-transport-system",
+        "name": "nav-menu-stack:nav-menu-stack.payment-transport-system.items.payment-transport-system",
+        "href": "/payment-transport-system/payment-transport-system"
+      },
+      {
+        "key": "payment-transport-system-settings",
+        "name": "nav-menu-stack:nav-menu-stack.payment-transport-system.items.payment-transport-system-settings",
+        "href": "/payment-transport-system/payment-transport-system-settings"
+      },
+      {
+        "key": "transport-handlers",
+        "name": "nav-menu-stack:nav-menu-stack.payment-transport-system.items.transport-handlers",
+        "href": "/payment-transport-system/transport-handlers"
+      },
+      {
+        "key": "api-handler-management",
+        "name": "nav-menu-stack:nav-menu-stack.payment-transport-system.items.api-handler-management",
+        "href": "/payment-transport-system/api-handler-management"
+      }
+    ]
+  },
+  {
+    "icon": "PI",
+    "key": "payment-investigation",
+    "name": "nav-menu-stack:nav-menu-stack.payment-investigation.name",
+    "items": [
+      {
+        "key": "cases",
+        "name": "nav-menu-stack:nav-menu-stack.payment-investigation.items.cases",
+        "href": "/payment-investigation/cases"
+      },
+      {
+        "key": "messages",
+        "name": "nav-menu-stack:nav-menu-stack.payment-investigation.items.messages",
+        "href": "/payment-investigation/messages"
+      },
+      {
+        "key": "create-message",
+        "name": "nav-menu-stack:nav-menu-stack.payment-investigation.items.create-message",
+        "href": "/payment-investigation/create-message"
+      },
+      {
+        "key": "analytics",
+        "name": "nav-menu-stack:nav-menu-stack.payment-investigation.items.analytics",
+        "href": "/payment-investigation/analytics"
+      }
+    ]
+  },
+  {
+    "icon": "AC",
+    "key": "statuses",
+    "name": "nav-menu-stack:nav-menu-stack.statuses",
+    "href": "statuses",
+    "items": [
+      {
+      }
+    ]
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "auth": {
+    "authorization": "Аўтарызацыя",
+    "login-input": "Увядзіце лагін",
+    "login": "Лагін",
+    "login-required": "Лагін абавязковы",
+    "enter-password": "Увядзіце пароль",
+    "password": "Пароль",
+    "password-required": "Пароль абавязковы",
+    "sign-in": "Увайсці"
+  }
+}
