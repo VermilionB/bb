@@ -91,11 +91,7 @@ export const BusinessPartnerInfoModal = ({
     staleTime: 0,
   });
 
-  const columnsTranslated = columnsCardData ?? [];
-  const columnsRaw = businessPartnerData
-    ? Object.keys(businessPartnerData)
-    : [];
-  const columns = translateColumns(columnsRaw, columnsTranslated);
+  const columns = translateColumns(columnsCardData);
   const getColumn = (
     accessorKey: string,
   ): { accessorKey: string; header: string } =>

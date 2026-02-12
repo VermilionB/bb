@@ -64,7 +64,7 @@ export const hasCreatePermission = (
   permissions: string[],
   key: string | undefined,
 ): boolean => {
-  return permissions.includes(`${key}:create`);
+  return permissions.includes(`${key}:add`);
 };
 
 export const hasUpdatePermission = (
@@ -118,7 +118,7 @@ const StatusCheckbox: FC<{
   ): void => {
     const newChecked = event.currentTarget.checked;
     setChecked(newChecked);
-    setClientStatus(newChecked ? "ALL" : "NOT_DELETED");
+    setClientStatus(newChecked ? "ALL" : "OPEN");
   };
   return (
     <Checkbox
@@ -399,7 +399,7 @@ const TopToolbar: FC<TopToolbarProperties> = ({
           {link.includes("/reference-book/") &&
             link !== "/reference-book/calendar" && (
               <Button
-                // disabled={!hasCreatePermission(permissions, permissionKey)}
+                disabled={!hasCreatePermission(permissions, permissionKey)}
                 className={classes.button}
                 h={30}
                 w={"auto"}

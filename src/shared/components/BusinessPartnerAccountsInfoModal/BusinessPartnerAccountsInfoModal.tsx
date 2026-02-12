@@ -95,10 +95,7 @@ export const BusinessPartnerAccountsInfoModal = ({
   });
 
   const columnsTranslated = columnsCardData ?? [];
-  const columnsRaw = businessPartnerAccountsData
-    ? Object.keys(businessPartnerAccountsData)
-    : [];
-  const columns = translateColumns(columnsRaw, columnsTranslated);
+  const columns = translateColumns(columnsTranslated);
   const getColumn = (
     accessorKey: string,
   ): { accessorKey: string; header: string } =>

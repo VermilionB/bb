@@ -100,7 +100,7 @@ export const IndexPage: FC = () => {
   );
 };
 
-const getSortCriteria = (sorting: MRT_SortingState): SortCriteria => {
+export const getSortCriteria = (sorting: MRT_SortingState): SortCriteria => {
   const sortCriteria: SortCriteria = {};
   for (const sort of sorting) {
     sortCriteria[sort.id] = sort.desc ? "DESC" : "ASC";

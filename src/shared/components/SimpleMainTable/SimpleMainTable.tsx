@@ -15,7 +15,6 @@ import IconSortDescending from "@public/assets/IconSortDescending.svg?react";
 import { MRT_Localization_BY } from "@public/locales/MRT_Localization_BY.ts";
 import { getColumns } from "@shared/api/mutation/bpAPI.ts";
 import { BankData } from "@shared/api/mutation/calendarAPI.ts";
-import { MainLoader } from "@shared/components/MainLoader/MainLoader.tsx";
 import PopoverCell from "@shared/components/MainTable/components/PopoverCell.tsx";
 import {
   ColumnParameters,
@@ -45,7 +44,7 @@ interface SimpleMainTableProperties {
   isLoading: boolean;
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const useLocalization = (i18n: any): MRT_Localization => {
+export const useLocalization = (i18n: any): MRT_Localization => {
   const [localization, setLocalization] = useState(MRT_Localization_RU);
 
   useEffect(() => {
@@ -64,7 +63,7 @@ const useLocalization = (i18n: any): MRT_Localization => {
   return localization;
 };
 
-const getCellValues = (data: BankData[]): BankData[] =>
+export const getCellValues = (data: BankData[]): BankData[] =>
   data && data.length > 0
     ? data.map((item: BankData) => {
         const object: BankData = { isoCode: "", bankCode: "", bankName: "" };
@@ -75,7 +74,7 @@ const getCellValues = (data: BankData[]): BankData[] =>
       })
     : [];
 
-const getProcessedColumns = (
+export const getProcessedColumns = (
   columnsWithAccessorKey: ColumnParameters[],
 ): ColumnParameters[] =>
   columnsWithAccessorKey.map((column) => ({
@@ -92,7 +91,7 @@ const getProcessedColumns = (
     size: column.header.length > 7 ? 160 : 100,
   }));
 
-const getCustomIcons: Partial<MRT_Icons> = {
+export const getCustomIcons: Partial<MRT_Icons> = {
   IconArrowsSort: () => <SvgButton SvgIcon={IconSort} fillColor={"#999999"} />,
   IconSortAscending: () => (
     <SvgButton SvgIcon={IconSortAscending} fillColor={"#006040"} />
@@ -148,6 +147,35 @@ const useTableInstance = ({
     isMultiSortEvent: () => true,
   });
 
+const AccordionControl: FC<{
+  headerIcon?: string;
+  headerTitle: string;
+  colorScheme: string;
+  children: React.ReactNode;
+}> = ({ headerIcon, headerTitle, colorScheme, children }) => (
+  <Accordion.Item value={"table"} p={0} style={{ borderRadius: "2px" }}>
+    <Accordion.Control
+      bg={colorScheme === "light" ? "#999999" : "#777778"}
+      style={{
+        borderTopLeftRadius: "2px",
+        borderTopRightRadius: "2px",
+        borderBottomLeftRadius: "0",
+        borderBottomRightRadius: "0",
+      }}
+    >
+      <Container p={0} mr={"sm"}>
+        <Group align={"center"} wrap={"nowrap"}>
+          {headerIcon && <Image w={20} h={20} src={headerIcon} />}
+          <Text c={colorScheme === "light" ? "#FFFFFF" : "#CCCCCC"}>
+            {headerTitle}
+          </Text>
+        </Group>
+      </Container>
+    </Accordion.Control>
+    <Accordion.Panel>{children}</Accordion.Panel>
+  </Accordion.Item>
+);
+
 export const SimpleMainTable: FC<SimpleMainTableProperties> = ({
   headerTitle,
   headerIcon,
@@ -161,7 +189,6 @@ export const SimpleMainTable: FC<SimpleMainTableProperties> = ({
   const { i18n } = useTranslation();
   // eslint-disable-next-line unicorn/no-null
   const [error] = useState<string | null>(null);
-  const [columnsFromData, setColumnsFromData] = useState<string[]>([]);
 
   const localization = useLocalization(i18n);
   const cellValues = getCellValues(data);
@@ -171,32 +198,12 @@ export const SimpleMainTable: FC<SimpleMainTableProperties> = ({
       return await getColumns("/reference-book/calendar", "MAIN_TABLE");
     },
   });
-  useEffect(() => {
-    if (data[0]) {
-      const newColumnsFromData = Object.keys(data[0]);
-      setColumnsFromData(newColumnsFromData);
-    }
-  }, [data]);
-  const columnsRaw = columnsTableData ? columnsFromData : [];
-  const columnsTranslated = columnsTableData ?? [];
-  const columnsWithAccessorKey = translateColumns(
-    columnsRaw,
-    columnsTranslated,
-  );
+  const columnsWithAccessorKey = translateColumns(columnsTableData);
   const processedColumns = getProcessedColumns(columnsWithAccessorKey);
 
   const table = useTableInstance({
     columns: processedColumns,
     data: cellValues,
-    sorting,
-    setSorting,
-    localization,
-    isLoading,
-  });
-
-  const emptyTable = useTableInstance({
-    columns: [],
-    data: [],
     sorting,
     setSorting,
     localization,
@@ -219,50 +226,7 @@ export const SimpleMainTable: FC<SimpleMainTableProperties> = ({
     );
   }
 
-  if (!data || data.length === 0) {
-    return (
-      <Flex direction={"column"} style={{ width }}>
-        <Accordion
-          chevronPosition="right"
-          variant="contained"
-          defaultValue={"table"}
-          classNames={{ content: styles.content, chevron: styles.chevron }}
-        >
-          <Accordion.Item value={"table"} p={0} style={{ borderRadius: "2px" }}>
-            <Accordion.Control
-              bg={colorScheme.colorScheme === "light" ? "#999999" : "#777778"}
-              style={{
-                borderTopLeftRadius: "2px",
-                borderTopRightRadius: "2px",
-                borderBottomLeftRadius: "0",
-                borderBottomRightRadius: "0",
-              }}
-            >
-              <Container p={0} mr={"sm"}>
-                <Group align={"center"} wrap={"nowrap"}>
-                  {headerIcon && <Image w={20} h={20} src={headerIcon} />}
-                  <Text
-                    c={
-                      colorScheme.colorScheme === "light"
-                        ? "#FFFFFF"
-                        : "#CCCCCC"
-                    }
-                  >
-                    {headerTitle}
-                  </Text>
-                </Group>
-              </Container>
-            </Accordion.Control>
-            <Accordion.Panel>
-              <MantineReactTable table={emptyTable} />
-            </Accordion.Panel>
-          </Accordion.Item>
-        </Accordion>
-      </Flex>
-    );
-  }
-
-  return data ? (
+  return (
     <Flex direction={"column"} style={{ width }}>
       <Accordion
         chevronPosition="right"
@@ -270,36 +234,14 @@ export const SimpleMainTable: FC<SimpleMainTableProperties> = ({
         defaultValue={"table"}
         classNames={{ content: styles.content, chevron: styles.chevron }}
       >
-        <Accordion.Item value={"table"} p={0} style={{ borderRadius: "2px" }}>
-          <Accordion.Control
-            bg={colorScheme.colorScheme === "light" ? "#999999" : "#777778"}
-            style={{
-              borderTopLeftRadius: "2px",
-              borderTopRightRadius: "2px",
-              borderBottomLeftRadius: "0",
-              borderBottomRightRadius: "0",
-            }}
-          >
-            <Container p={0} mr={"sm"}>
-              <Group align={"center"} wrap={"nowrap"}>
-                {headerIcon && <Image w={20} h={20} src={headerIcon} />}
-                <Text
-                  c={
-                    colorScheme.colorScheme === "light" ? "#FFFFFF" : "#CCCCCC"
-                  }
-                >
-                  {headerTitle}
-                </Text>
-              </Group>
-            </Container>
-          </Accordion.Control>
-          <Accordion.Panel>
-            <MantineReactTable table={table} />
-          </Accordion.Panel>
-        </Accordion.Item>
+        <AccordionControl
+          headerIcon={headerIcon}
+          headerTitle={headerTitle}
+          colorScheme={colorScheme.colorScheme}
+        >
+          <MantineReactTable table={table} />
+        </AccordionControl>
       </Accordion>
     </Flex>
-  ) : (
-    <MainLoader />
   );
 };

@@ -25,7 +25,7 @@ interface RowActionsProperties {
   link: string;
   setOpenedEditModal: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenedDeleteModal: React.Dispatch<React.SetStateAction<boolean>>;
-  setCurrentRow: React.Dispatch<React.SetStateAction<MRT_RowData | undefined>>; // New prop
+  setCurrentRow: React.Dispatch<React.SetStateAction<MRT_RowData | undefined>>;
 }
 
 const RowActions = ({

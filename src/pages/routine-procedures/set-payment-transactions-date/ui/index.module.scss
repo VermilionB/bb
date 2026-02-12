@@ -1,0 +1,30 @@
+.select-wrapper {
+  height: 30px !important;
+  font-size: 14px;
+}
+
+.option-item {
+  font-size: 14px;
+  min-height: 34px;
+}
+
+.control-item {
+  &:hover {
+    background: #F1F3F5;
+  }
+}
+
+.button {
+  line-height: 100%;
+
+  &:disabled {
+    color: #EBEDF0;
+    opacity: 0.5;
+    background-color: #006040;
+  }
+}
+
+.selected-control {
+  background-color: #999;
+  color: #FFF;
+}

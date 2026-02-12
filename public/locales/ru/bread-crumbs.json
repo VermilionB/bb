@@ -32,6 +32,9 @@
     "customer-file": "Картотека клиентов",
     "business-partner-accounts": "Счета",
     "accounts-file": "Картотека счетов",
-    "calendar": "Календарь выходных дней"
+    "calendar": "Календарь выходных дней",
+    "routine-procedures": "Регламентные процедуры",
+    "settings": "Настройки",
+    "set-payment-transactions-date": "Установка даты проводки платежных операций"
   }
 }

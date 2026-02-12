@@ -147,7 +147,10 @@ const CreateRowModalContent: FC<CreateRowModalContentProperties> = ({
           );
           console.log("referenceBookEntry", referenceBookEntry);
           const columnType = referenceBookEntry
-            ? referenceBookEntry.columns[column.accessorKey]
+            ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              (referenceBookEntry.columns as Record<string, any>)[
+                column.accessorKey
+              ]
             : "string";
           return (
             <Flex gap={"4px"} direction="column" key={column.accessorKey}>

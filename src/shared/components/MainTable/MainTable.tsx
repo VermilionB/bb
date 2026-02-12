@@ -11,9 +11,6 @@ import {
 import { useTranslation } from "react-i18next";
 import { Flex, Text, useMantineColorScheme } from "@mantine/core";
 import { useDebouncedCallback } from "@mantine/hooks";
-import IconSort from "@public/assets/IconSort.svg?react";
-import IconSortAscending from "@public/assets/IconSortAscending.svg?react";
-import IconSortDescending from "@public/assets/IconSortDescending.svg?react";
 import { MRT_Localization_BY } from "@public/locales/MRT_Localization_BY.ts";
 import { MRT_Localization_RU_Custom } from "@public/locales/MRT_Localization_RU_Custom";
 import { getColumns } from "@shared/api/mutation/bpAPI.ts";
@@ -31,7 +28,7 @@ import { CalendarDeleteModal } from "@shared/components/MainTable/components/Row
 import { CalendarEditModal } from "@shared/components/MainTable/components/RowActions/CalendarEditModal.tsx";
 import { DeleteConfirmModal } from "@shared/components/MainTable/components/RowActions/DeleteConfirmModal.tsx";
 import TopToolbar from "@shared/components/MainTable/components/topToolbar.tsx";
-import SvgButton from "@shared/components/SvgWrapper/SvgButton.tsx";
+import { getCustomIcons } from "@shared/components/SimpleMainTable/SimpleMainTable.tsx";
 import UpdateTableModal from "@shared/components/UpdateTableModal/UpdateTableModal.tsx";
 import {
   useInfiniteQuery,
@@ -41,7 +38,6 @@ import {
 import {
   MantineReactTable,
   MRT_ColumnFiltersState,
-  MRT_Icons,
   MRT_RowData,
   MRT_RowVirtualizer,
   MRT_SortingState,
@@ -72,7 +68,7 @@ export interface ParametersPost {
   searchText: string;
   sortCriteria: SortCriteria;
   searchCriteria: FilterCriteria;
-  status: ClientStatus;
+  status: ClientStatus | string;
 }
 
 interface InfiniteTableDataResponse {
@@ -85,7 +81,7 @@ export interface ColumnParameters {
   accessorKey: string;
 }
 
-export type ClientStatus = "ALL" | "DELETED" | "NOT_DELETED";
+export type ClientStatus = "ALL" | "OPEN" | "CLOSED";
 export const translateColumns = (
   tableColumnsTranslated: Record<string, string> | undefined,
 ): ColumnParameters[] => {
@@ -132,7 +128,7 @@ export const MainTable: FC<MainTableProperties> = ({
   const [openedEditModal, setOpenedEditModal] = useState<boolean>(false);
   const [openedDeleteModal, setOpenedDeleteModal] = useState<boolean>(false);
   const [globalFilter, setGlobalFilter] = useState("");
-  const [clientStatus, setClientStatus] = useState<ClientStatus>("NOT_DELETED");
+  const [clientStatus, setClientStatus] = useState<ClientStatus>("OPEN");
   const { i18n } = useTranslation();
   const colorScheme = useMantineColorScheme();
   const [error, setError] = useState<string | undefined>();
@@ -203,7 +199,7 @@ export const MainTable: FC<MainTableProperties> = ({
     searchText: globalFilter ?? "",
     sortCriteria: sortCriteria,
     searchCriteria: columnSearchCriteria,
-    status: clientStatus,
+    status: link.includes("/reference-book") ? "NOT_DELETED" : clientStatus,
   };
   const { data, refetch, fetchNextPage, isRefetching, isLoading } =
     useInfiniteQuery<ITableDataResponse>({
@@ -226,10 +222,10 @@ export const MainTable: FC<MainTableProperties> = ({
   const queryClient = useQueryClient();
   const handleRefetch = async (): Promise<void> => {
     setIsLoadingMore(true);
-    const { data: existingData } = queryClient.getQueryData([
-      "apiData",
-      parametersPost,
-    ]);
+    const queryData = queryClient.getQueryData(["apiData", parametersPost]) as  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      | { data: any }
+      | undefined;
+    const existingData = queryData?.data;
 
     await refetch();
 
@@ -393,17 +389,6 @@ export const MainTable: FC<MainTableProperties> = ({
         })
       : [];
 
-  const customIcons: Partial<MRT_Icons> = {
-    IconArrowsSort: () => (
-      <SvgButton SvgIcon={IconSort} fillColor={"#999999"} />
-    ),
-    IconSortAscending: () => (
-      <SvgButton SvgIcon={IconSortAscending} fillColor={"#006040"} />
-    ),
-    IconSortDescending: () => (
-      <SvgButton SvgIcon={IconSortDescending} fillColor={"#006040"} />
-    ),
-  };
   const table = useMantineReactTable({
     onGlobalFilterChange: handleGlobalFilterChange,
     renderEditRowModalContent: ({ row }) => (
@@ -504,7 +489,7 @@ export const MainTable: FC<MainTableProperties> = ({
       };
     },
 
-    icons: customIcons,
+    icons: getCustomIcons,
     enableFilters: true,
     displayColumnDefOptions: {
       "mrt-row-actions": {

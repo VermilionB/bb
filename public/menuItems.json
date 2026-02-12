@@ -418,6 +418,11 @@
         "key": "generate-MT940-950",
         "name": "nav-menu-stack:nav-menu-stack.routine-procedures.items.generate-MT940-950",
         "href": "/routine-procedures/generate-MT940-950"
+      },
+      {
+        "key": "settings",
+        "name": "nav-menu-stack:nav-menu-stack.routine-procedures.items.settings",
+        "href": "/routine-procedures/settings"
       }
     ]
   },
