@@ -19,6 +19,7 @@ import {
   CorrectionalRecordsDayResponse,
   getCorrectionalRecordsDay,
 } from "@shared/api/mutation/routineProceduresAPI.ts";
+import { getUsers, UsersResponse } from "@shared/api/query/getUsers.ts";
 import { ChildrenPanel } from "@shared/components/ChildrenPanel";
 import { formatDate } from "@shared/components/MainTable/components/TopToolbar/CreateCalendarRowModal.tsx";
 import {
@@ -148,19 +149,29 @@ export const RPSetPaymentTransactionsDatePage: FC = () => {
     borderTopStyle = commonBorderStyle;
   }
   const sortCriteria = getSortCriteria(sorting);
+  const parametersApi = {};
+  const { data: correctionalRecordsDayData } = useQuery<
+    CorrectionalRecordsDayResponse[]
+  >({
+    queryKey: ["getCorrectionalRecordsDay", sortCriteria],
+    queryFn: () => getCorrectionalRecordsDay(),
+    staleTime: 0,
+  });
 
-  const { data: correctionalRecordsDayData } =
-    useQuery<CorrectionalRecordsDayResponse>({
-      queryKey: ["getCorrectionalRecordsDay", sortCriteria],
-      queryFn: () => getCorrectionalRecordsDay(),
-      staleTime: 0,
-    });
+  const { data: usersData } = useQuery<UsersResponse[]>({
+    queryKey: ["getUsers"],
+    queryFn: () => getUsers(sortCriteria),
+    staleTime: 0,
+  });
 
   const localization = useLocalization(i18n);
   const { data: columnsTableData } = useQuery({
     queryKey: ["getColumnsTable"],
     queryFn: async () => {
-      return await getColumns("/reference-book/calendar", "MAIN_TABLE");
+      return await getColumns(
+        "/reglament-procedures/correctional-records-day/",
+        "TABLE",
+      );
     },
   });
   const columnsWithAccessorKey = translateColumns(columnsTableData);

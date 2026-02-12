@@ -7,21 +7,22 @@ export interface CorrectionalRecordsDayResponse {
   correctionalUser: string;
 }
 
-export const getCorrectionalRecordsDay =
-  async (): Promise<CorrectionalRecordsDayResponse> => {
-    try {
-      const response = await $authHost.get(
-        `/reglament-procedures/correctional-records-day/`,
-      );
-      return response.data;
-      //eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      notifications.show({
-        title: "Ошибка",
-        message: error.message,
-        color: "red",
-        autoClose: 5000,
-      });
-      throw error;
-    }
-  };
+export const getCorrectionalRecordsDay = async (): Promise<
+  CorrectionalRecordsDayResponse[]
+> => {
+  try {
+    const response = await $authHost.get(
+      `/reglament-procedures/correctional-records-day/`,
+    );
+    return response.data;
+    //eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    notifications.show({
+      title: "Ошибка",
+      message: error.message,
+      color: "red",
+      autoClose: 5000,
+    });
+    throw error;
+  }
+};
