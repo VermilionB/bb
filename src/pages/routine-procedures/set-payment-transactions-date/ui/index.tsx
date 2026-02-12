@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import {
   ActionIcon,
   Box,
@@ -32,7 +32,7 @@ import {
   useLocalization,
 } from "@shared/components/SimpleMainTable/SimpleMainTable.tsx";
 import SvgButton from "@shared/components/SvgWrapper/SvgButton.tsx";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import i18n from "i18next";
 import {
   MantineReactTable,
@@ -43,6 +43,8 @@ import {
 } from "mantine-react-table";
 
 import classes from "./index.module.scss";
+
+const PAGE_SIZE = 20;
 
 const useTableInstance = ({
   columns,
@@ -69,7 +71,6 @@ const useTableInstance = ({
         <Flex justify={"center"} align={"center"} gap={8}>
           <Tooltip label={"Удалить запись"} withArrow>
             <ActionIcon
-              // disabled={!hasDeletePermission(permissions, permissionKey)}
               variant="transparent"
               color={"dimmed"}
               onClick={() => console.log(row.original)}
@@ -117,6 +118,7 @@ export const RPSetPaymentTransactionsDatePage: FC = () => {
   const colorScheme = useMantineColorScheme();
   const currentDate = formatDate(new Date().toLocaleDateString(), "yyyy-mm-dd");
   const [performers, setPerformers] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const isSmallScreen = useMediaQuery("(max-width: 1280px)");
   const [currentPaymentTransactionDate, setCurrentPaymentTransactionDate] =
     useState<string | null>(currentDate);
@@ -127,6 +129,9 @@ export const RPSetPaymentTransactionsDatePage: FC = () => {
     currentDate,
   );
   const [sorting, setSorting] = useState<MRT_SortingState>([]);
+  const [isMultiSelectDropdownOpen, setIsMultiSelectDropdownOpen] =
+    useState(false);
+  const viewportReference = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setCurrentPaymentTransactionDate(currentDate);
@@ -149,7 +154,7 @@ export const RPSetPaymentTransactionsDatePage: FC = () => {
     borderTopStyle = commonBorderStyle;
   }
   const sortCriteria = getSortCriteria(sorting);
-  const parametersApi = {};
+
   const { data: correctionalRecordsDayData } = useQuery<
     CorrectionalRecordsDayResponse[]
   >({
@@ -158,11 +163,58 @@ export const RPSetPaymentTransactionsDatePage: FC = () => {
     staleTime: 0,
   });
 
-  const { data: usersData } = useQuery<UsersResponse[]>({
-    queryKey: ["getUsers"],
-    queryFn: () => getUsers(sortCriteria),
+  // Infinite query for users with pagination for MultiSelect
+  const {
+    data: usersData,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading: isLoadingUsers,
+    refetch: refetchUsers,
+  } = useInfiniteQuery({
+    queryKey: ["getUsers", sortCriteria, searchQuery],
+    queryFn: async ({ pageParam: pageParameter = 0 }) => {
+      const response = await getUsers({
+        link: "/authorization/admin/users/",
+        page: pageParameter,
+        size: PAGE_SIZE,
+        searchText: searchQuery,
+      });
+      return {
+        data: response,
+        page: pageParameter,
+        size: PAGE_SIZE,
+        totalPages: response.length < PAGE_SIZE ? pageParameter + 1 : undefined,
+      };
+    },
+    getNextPageParam: (lastPage, allPages) => {
+      if (lastPage.data.length < PAGE_SIZE) {
+        return;
+      }
+      return allPages.length;
+    },
+    initialPageParam: 0,
     staleTime: 0,
+    refetchOnWindowFocus: false,
   });
+
+  // Handle scroll in MultiSelect dropdown
+  const handleScroll = useCallback(
+    (event: React.UIEvent<HTMLDivElement>) => {
+      const { scrollHeight, scrollTop, clientHeight } = event.currentTarget;
+      if (
+        scrollHeight - scrollTop - clientHeight < 50 &&
+        hasNextPage &&
+        !isFetchingNextPage
+      ) {
+        fetchNextPage();
+      }
+    },
+    [fetchNextPage, hasNextPage, isFetchingNextPage],
+  );
+
+  // Flatten all users data from all pages
+  const allUsers = usersData?.pages.flatMap((page) => page.data) ?? [];
 
   const localization = useLocalization(i18n);
   const { data: columnsTableData } = useQuery({
@@ -174,10 +226,11 @@ export const RPSetPaymentTransactionsDatePage: FC = () => {
       );
     },
   });
+
   const columnsWithAccessorKey = translateColumns(columnsTableData);
   const processedColumns = getProcessedColumns(columnsWithAccessorKey);
 
-  const rulesForNotesCorrection = useTableInstance({
+  const table = useTableInstance({
     columns: processedColumns,
     data: correctionalRecordsDayData ?? [],
     sorting,
@@ -187,15 +240,10 @@ export const RPSetPaymentTransactionsDatePage: FC = () => {
   });
 
   const handlePerformersChange = (values: string[]): void => {
-    if (values.includes("all")) {
-      setPerformers(performersData.map((item) => item.value));
-    } else if (performers.includes("all") && !values.includes("all")) {
-      setPerformers([]);
-    } else {
-      setPerformers(values.filter((v) => v !== "all"));
-    }
+    setPerformers(values);
   };
 
+  // Mock data as fallback
   const performersData = [
     { value: "all", label: "Для всех исполнителей" },
     { value: "petrov", label: "Петров Петр Петрович" },
@@ -204,6 +252,22 @@ export const RPSetPaymentTransactionsDatePage: FC = () => {
     { value: "pushkin", label: "Пушкин Александр Сергеевич" },
     { value: "tyutchev", label: "Тютчев Федор Иванович" },
   ];
+
+  // Transform API users data for MultiSelect
+  const apiUsersData = allUsers.map((user) => ({
+    value: user.username || user.id,
+    label:
+      user.fullName ||
+      `${user.lastName || ""} ${user.firstName || ""}`.trim() ||
+      user.username ||
+      user.id,
+  }));
+
+  // Use API data if available, otherwise use mock data
+  const selectData =
+    apiUsersData.length > 0
+      ? [{ value: "all", label: "Для всех исполнителей" }, ...apiUsersData]
+      : performersData;
 
   return (
     <Flex
@@ -397,10 +461,40 @@ export const RPSetPaymentTransactionsDatePage: FC = () => {
                 </Text>
                 <MultiSelect
                   placeholder={"Выберите исполнителей"}
-                  data={performersData}
+                  data={selectData}
                   value={performers}
                   onChange={handlePerformersChange}
                   clearable
+                  searchable
+                  onSearchChange={setSearchQuery}
+                  searchValue={searchQuery}
+                  nothingFoundMessage="Исполнители не найдены"
+                  maxDropdownHeight={300}
+                  onDropdownOpen={() => {
+                    setIsMultiSelectDropdownOpen(true);
+                    refetchUsers();
+                  }}
+                  onDropdownClose={() => {
+                    setIsMultiSelectDropdownOpen(false);
+                  }}
+                  dropdownComponent={(properties: any) => (
+                    <div {...properties}>
+                      <div
+                        ref={viewportReference}
+                        onScroll={handleScroll}
+                        style={{ maxHeight: 300, overflowY: "auto" }}
+                      >
+                        {properties.children}
+                        {isFetchingNextPage && (
+                          <Flex justify="center" p="xs">
+                            <Text size="sm" c="dimmed">
+                              Загрузка...
+                            </Text>
+                          </Flex>
+                        )}
+                      </div>
+                    </div>
+                  )}
                 />
               </Flex>
             </>
@@ -410,7 +504,7 @@ export const RPSetPaymentTransactionsDatePage: FC = () => {
             customWidth={538}
           >
             <Box mt={"8px"}>
-              <MantineReactTable table={rulesForNotesCorrection} />
+              <MantineReactTable table={table} />
             </Box>
           </ChildrenPanel>
         </Flex>
