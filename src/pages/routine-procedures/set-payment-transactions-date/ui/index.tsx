@@ -16,10 +16,9 @@ import IconCalendar from "@public/assets/IconCalendar.svg?react";
 import IconDelete from "@public/assets/IconDelete.svg?react";
 import { getColumns } from "@shared/api/mutation/bpAPI.ts";
 import {
-  BankData,
-  getWeekends,
-  WeekendDaysResponse,
-} from "@shared/api/mutation/calendarAPI.ts";
+  CorrectionalRecordsDayResponse,
+  getCorrectionalRecordsDay,
+} from "@shared/api/mutation/routineProceduresAPI.ts";
 import { ChildrenPanel } from "@shared/components/ChildrenPanel";
 import { formatDate } from "@shared/components/MainTable/components/TopToolbar/CreateCalendarRowModal.tsx";
 import {
@@ -27,7 +26,6 @@ import {
   translateColumns,
 } from "@shared/components/MainTable/MainTable.tsx";
 import {
-  getCellValues,
   getCustomIcons,
   getProcessedColumns,
   useLocalization,
@@ -54,12 +52,12 @@ const useTableInstance = ({
   isLoading,
 }: {
   columns: ColumnParameters[];
-  data: BankData[];
+  data: CorrectionalRecordsDayResponse[];
   sorting: MRT_SortingState;
   setSorting: React.Dispatch<React.SetStateAction<MRT_SortingState>>;
   localization: MRT_Localization;
   isLoading: boolean;
-}): MRT_TableInstance<BankData> =>
+}): MRT_TableInstance<CorrectionalRecordsDayResponse> =>
   useMantineReactTable({
     icons: getCustomIcons,
     columns,
@@ -151,45 +149,30 @@ export const RPSetPaymentTransactionsDatePage: FC = () => {
   }
   const sortCriteria = getSortCriteria(sorting);
 
-  const { data: weekendData } = useQuery<WeekendDaysResponse>({
-    queryKey: ["getBLASLALA", sortCriteria],
-    queryFn: () => getWeekends(1, sortCriteria),
-    staleTime: 0,
-  });
-  const firstData = weekendData?.weekendsBusinessPartnersList ?? [];
-  /////////////////////////////////////////////////////////////////////////////
-
-  const [columnsFromData, setColumnsFromData] = useState<string[]>([]);
+  const { data: correctionalRecordsDayData } =
+    useQuery<CorrectionalRecordsDayResponse>({
+      queryKey: ["getCorrectionalRecordsDay", sortCriteria],
+      queryFn: () => getCorrectionalRecordsDay(),
+      staleTime: 0,
+    });
 
   const localization = useLocalization(i18n);
-  const cellValues = getCellValues(firstData);
   const { data: columnsTableData } = useQuery({
     queryKey: ["getColumnsTable"],
     queryFn: async () => {
       return await getColumns("/reference-book/calendar", "MAIN_TABLE");
     },
   });
-  useEffect(() => {
-    if (firstData[0]) {
-      const newColumnsFromData = Object.keys(firstData[0]);
-      setColumnsFromData(newColumnsFromData);
-    }
-  }, [firstData]);
-  const columnsRaw = columnsTableData ? columnsFromData : [];
-  const columnsTranslated = columnsTableData ?? [];
-  const columnsWithAccessorKey = translateColumns(
-    columnsRaw,
-    columnsTranslated,
-  );
+  const columnsWithAccessorKey = translateColumns(columnsTableData);
   const processedColumns = getProcessedColumns(columnsWithAccessorKey);
 
   const rulesForNotesCorrection = useTableInstance({
     columns: processedColumns,
-    data: cellValues,
+    data: correctionalRecordsDayData ?? [],
     sorting,
     setSorting,
     localization,
-    isLoading: !weekendData,
+    isLoading: !correctionalRecordsDayData,
   });
 
   const handlePerformersChange = (values: string[]): void => {
