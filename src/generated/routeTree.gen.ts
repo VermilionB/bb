@@ -18,6 +18,9 @@ import { Route as rootRoute } from './../routes/__root'
 
 const IndexLazyImport = createFileRoute('/')()
 const LoginIndexLazyImport = createFileRoute('/login/')()
+const CreatePaymentDocumentIndexLazyImport = createFileRoute(
+  '/create-payment-document/',
+)()
 const ReferenceBookSlugLazyImport = createFileRoute('/reference-book/$slug')()
 const BusinessPartnerSlugLazyImport = createFileRoute(
   '/business-partner/$slug',
@@ -49,6 +52,17 @@ const LoginIndexLazyRoute = LoginIndexLazyImport.update({
 } as any).lazy(() =>
   import('./../routes/login/index.lazy').then((d) => d.Route),
 )
+
+const CreatePaymentDocumentIndexLazyRoute =
+  CreatePaymentDocumentIndexLazyImport.update({
+    id: '/create-payment-document/',
+    path: '/create-payment-document/',
+    getParentRoute: () => rootRoute,
+  } as any).lazy(() =>
+    import('./../routes/create-payment-document/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 
 const ReferenceBookSlugLazyRoute = ReferenceBookSlugLazyImport.update({
   id: '/reference-book/$slug',
@@ -142,6 +156,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReferenceBookSlugLazyImport
       parentRoute: typeof rootRoute
     }
+    '/create-payment-document/': {
+      id: '/create-payment-document/'
+      path: '/create-payment-document'
+      fullPath: '/create-payment-document'
+      preLoaderRoute: typeof CreatePaymentDocumentIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/login/': {
       id: '/login/'
       path: '/login'
@@ -180,6 +201,7 @@ export interface FileRoutesByFullPath {
   '/business-partner-accounts/$slug': typeof BusinessPartnerAccountsSlugLazyRoute
   '/business-partner/$slug': typeof BusinessPartnerSlugLazyRoute
   '/reference-book/$slug': typeof ReferenceBookSlugLazyRoute
+  '/create-payment-document': typeof CreatePaymentDocumentIndexLazyRoute
   '/login': typeof LoginIndexLazyRoute
   '/reference-book/calendar': typeof ReferenceBookCalendarIndexLazyRoute
   '/routine-procedures/set-payment-transactions-date': typeof RoutineProceduresSetPaymentTransactionsDateIndexLazyRoute
@@ -191,6 +213,7 @@ export interface FileRoutesByTo {
   '/business-partner-accounts/$slug': typeof BusinessPartnerAccountsSlugLazyRoute
   '/business-partner/$slug': typeof BusinessPartnerSlugLazyRoute
   '/reference-book/$slug': typeof ReferenceBookSlugLazyRoute
+  '/create-payment-document': typeof CreatePaymentDocumentIndexLazyRoute
   '/login': typeof LoginIndexLazyRoute
   '/reference-book/calendar': typeof ReferenceBookCalendarIndexLazyRoute
   '/routine-procedures/set-payment-transactions-date': typeof RoutineProceduresSetPaymentTransactionsDateIndexLazyRoute
@@ -203,6 +226,7 @@ export interface FileRoutesById {
   '/business-partner-accounts/$slug': typeof BusinessPartnerAccountsSlugLazyRoute
   '/business-partner/$slug': typeof BusinessPartnerSlugLazyRoute
   '/reference-book/$slug': typeof ReferenceBookSlugLazyRoute
+  '/create-payment-document/': typeof CreatePaymentDocumentIndexLazyRoute
   '/login/': typeof LoginIndexLazyRoute
   '/reference-book/calendar/': typeof ReferenceBookCalendarIndexLazyRoute
   '/routine-procedures/set-payment-transactions-date/': typeof RoutineProceduresSetPaymentTransactionsDateIndexLazyRoute
@@ -216,6 +240,7 @@ export interface FileRouteTypes {
     | '/business-partner-accounts/$slug'
     | '/business-partner/$slug'
     | '/reference-book/$slug'
+    | '/create-payment-document'
     | '/login'
     | '/reference-book/calendar'
     | '/routine-procedures/set-payment-transactions-date'
@@ -226,6 +251,7 @@ export interface FileRouteTypes {
     | '/business-partner-accounts/$slug'
     | '/business-partner/$slug'
     | '/reference-book/$slug'
+    | '/create-payment-document'
     | '/login'
     | '/reference-book/calendar'
     | '/routine-procedures/set-payment-transactions-date'
@@ -236,6 +262,7 @@ export interface FileRouteTypes {
     | '/business-partner-accounts/$slug'
     | '/business-partner/$slug'
     | '/reference-book/$slug'
+    | '/create-payment-document/'
     | '/login/'
     | '/reference-book/calendar/'
     | '/routine-procedures/set-payment-transactions-date/'
@@ -248,6 +275,7 @@ export interface RootRouteChildren {
   BusinessPartnerAccountsSlugLazyRoute: typeof BusinessPartnerAccountsSlugLazyRoute
   BusinessPartnerSlugLazyRoute: typeof BusinessPartnerSlugLazyRoute
   ReferenceBookSlugLazyRoute: typeof ReferenceBookSlugLazyRoute
+  CreatePaymentDocumentIndexLazyRoute: typeof CreatePaymentDocumentIndexLazyRoute
   LoginIndexLazyRoute: typeof LoginIndexLazyRoute
   ReferenceBookCalendarIndexLazyRoute: typeof ReferenceBookCalendarIndexLazyRoute
   RoutineProceduresSetPaymentTransactionsDateIndexLazyRoute: typeof RoutineProceduresSetPaymentTransactionsDateIndexLazyRoute
@@ -259,6 +287,7 @@ const rootRouteChildren: RootRouteChildren = {
   BusinessPartnerAccountsSlugLazyRoute: BusinessPartnerAccountsSlugLazyRoute,
   BusinessPartnerSlugLazyRoute: BusinessPartnerSlugLazyRoute,
   ReferenceBookSlugLazyRoute: ReferenceBookSlugLazyRoute,
+  CreatePaymentDocumentIndexLazyRoute: CreatePaymentDocumentIndexLazyRoute,
   LoginIndexLazyRoute: LoginIndexLazyRoute,
   ReferenceBookCalendarIndexLazyRoute: ReferenceBookCalendarIndexLazyRoute,
   RoutineProceduresSetPaymentTransactionsDateIndexLazyRoute:
@@ -281,6 +310,7 @@ export const routeTree = rootRoute
         "/business-partner-accounts/$slug",
         "/business-partner/$slug",
         "/reference-book/$slug",
+        "/create-payment-document/",
         "/login/",
         "/reference-book/calendar/",
         "/routine-procedures/set-payment-transactions-date/",
@@ -298,6 +328,9 @@ export const routeTree = rootRoute
     },
     "/reference-book/$slug": {
       "filePath": "reference-book/$slug.lazy.tsx"
+    },
+    "/create-payment-document/": {
+      "filePath": "create-payment-document/index.lazy.tsx"
     },
     "/login/": {
       "filePath": "login/index.lazy.tsx"

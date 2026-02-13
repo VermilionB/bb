@@ -3,7 +3,6 @@ import { $authHost } from "@shared/api";
 import { AxiosResponse } from "axios";
 
 interface GetApiDataParameters {
-  link: string;
   page: number;
   size: number;
   searchText?: string;
@@ -23,7 +22,7 @@ export const getUsers = async (
 ): Promise<UsersResponse[]> => {
   try {
     const response: AxiosResponse<UsersResponse[]> = await $authHost.get(
-      `/authorization/admin/users/`,
+      `/authorization/admin/users`,
       { params: parameters },
     );
     return response.data;

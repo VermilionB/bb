@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useRef, useState } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import {
   ActionIcon,
   Box,
@@ -10,7 +10,7 @@ import {
   useMantineColorScheme,
 } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
-import { useMediaQuery } from "@mantine/hooks";
+import { useDebouncedCallback, useMediaQuery } from "@mantine/hooks";
 import { getSortCriteria } from "@pages/index/ui";
 import IconCalendar from "@public/assets/IconCalendar.svg?react";
 import IconDelete from "@public/assets/IconDelete.svg?react";
@@ -19,7 +19,7 @@ import {
   CorrectionalRecordsDayResponse,
   getCorrectionalRecordsDay,
 } from "@shared/api/mutation/routineProceduresAPI.ts";
-import { getUsers, UsersResponse } from "@shared/api/query/getUsers.ts";
+import { getUsers } from "@shared/api/query/getUsers.ts";
 import { ChildrenPanel } from "@shared/components/ChildrenPanel";
 import { formatDate } from "@shared/components/MainTable/components/TopToolbar/CreateCalendarRowModal.tsx";
 import {
@@ -131,11 +131,21 @@ export const RPSetPaymentTransactionsDatePage: FC = () => {
   const [sorting, setSorting] = useState<MRT_SortingState>([]);
   const [isMultiSelectDropdownOpen, setIsMultiSelectDropdownOpen] =
     useState(false);
-  const viewportReference = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setCurrentPaymentTransactionDate(currentDate);
   }, [currentDate]);
+
+  const debouncedSearchQuery = useDebouncedCallback((value: string) => {
+    if (value !== searchQuery) {
+      setSearchQuery(value);
+    }
+  }, 400);
+
+  const handleSearchQueryChange = (value: string): void => {
+    setSearchQuery(value);
+    debouncedSearchQuery(value);
+  };
 
   const [errors, setErrors] = useState<{
     countryId: string;
@@ -163,7 +173,6 @@ export const RPSetPaymentTransactionsDatePage: FC = () => {
     staleTime: 0,
   });
 
-  // Infinite query for users with pagination for MultiSelect
   const {
     data: usersData,
     fetchNextPage,
@@ -172,10 +181,9 @@ export const RPSetPaymentTransactionsDatePage: FC = () => {
     isLoading: isLoadingUsers,
     refetch: refetchUsers,
   } = useInfiniteQuery({
-    queryKey: ["getUsers", sortCriteria, searchQuery],
+    queryKey: ["getUsers", searchQuery],
     queryFn: async ({ pageParam: pageParameter = 0 }) => {
       const response = await getUsers({
-        link: "/authorization/admin/users/",
         page: pageParameter,
         size: PAGE_SIZE,
         searchText: searchQuery,
@@ -191,27 +199,21 @@ export const RPSetPaymentTransactionsDatePage: FC = () => {
       if (lastPage.data.length < PAGE_SIZE) {
         return;
       }
+      // eslint-disable-next-line consistent-return
       return allPages.length;
     },
+    enabled: isMultiSelectDropdownOpen,
     initialPageParam: 0,
     staleTime: 0,
     refetchOnWindowFocus: false,
   });
 
   // Handle scroll in MultiSelect dropdown
-  const handleScroll = useCallback(
-    (event: React.UIEvent<HTMLDivElement>) => {
-      const { scrollHeight, scrollTop, clientHeight } = event.currentTarget;
-      if (
-        scrollHeight - scrollTop - clientHeight < 50 &&
-        hasNextPage &&
-        !isFetchingNextPage
-      ) {
-        fetchNextPage();
-      }
-    },
-    [fetchNextPage, hasNextPage, isFetchingNextPage],
-  );
+  const handleScroll = useCallback(() => {
+    if (hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
   // Flatten all users data from all pages
   const allUsers = usersData?.pages.flatMap((page) => page.data) ?? [];
@@ -243,17 +245,6 @@ export const RPSetPaymentTransactionsDatePage: FC = () => {
     setPerformers(values);
   };
 
-  // Mock data as fallback
-  const performersData = [
-    { value: "all", label: "Для всех исполнителей" },
-    { value: "petrov", label: "Петров Петр Петрович" },
-    { value: "ivanov", label: "Иванов Иван Иванович" },
-    { value: "sidorov", label: "Сидоров Владимир Григорьевич" },
-    { value: "pushkin", label: "Пушкин Александр Сергеевич" },
-    { value: "tyutchev", label: "Тютчев Федор Иванович" },
-  ];
-
-  // Transform API users data for MultiSelect
   const apiUsersData = allUsers.map((user) => ({
     value: user.username || user.id,
     label:
@@ -263,11 +254,10 @@ export const RPSetPaymentTransactionsDatePage: FC = () => {
       user.id,
   }));
 
-  // Use API data if available, otherwise use mock data
   const selectData =
     apiUsersData.length > 0
       ? [{ value: "all", label: "Для всех исполнителей" }, ...apiUsersData]
-      : performersData;
+      : [];
 
   return (
     <Flex
@@ -466,7 +456,7 @@ export const RPSetPaymentTransactionsDatePage: FC = () => {
                   onChange={handlePerformersChange}
                   clearable
                   searchable
-                  onSearchChange={setSearchQuery}
+                  onSearchChange={handleSearchQueryChange}
                   searchValue={searchQuery}
                   nothingFoundMessage="Исполнители не найдены"
                   maxDropdownHeight={300}
@@ -477,24 +467,13 @@ export const RPSetPaymentTransactionsDatePage: FC = () => {
                   onDropdownClose={() => {
                     setIsMultiSelectDropdownOpen(false);
                   }}
-                  dropdownComponent={(properties: any) => (
-                    <div {...properties}>
-                      <div
-                        ref={viewportReference}
-                        onScroll={handleScroll}
-                        style={{ maxHeight: 300, overflowY: "auto" }}
-                      >
-                        {properties.children}
-                        {isFetchingNextPage && (
-                          <Flex justify="center" p="xs">
-                            <Text size="sm" c="dimmed">
-                              Загрузка...
-                            </Text>
-                          </Flex>
-                        )}
-                      </div>
-                    </div>
-                  )}
+                  scrollAreaProps={{
+                    onBottomReached: () => {
+                      if (hasNextPage && !isFetchingNextPage) {
+                        handleScroll();
+                      }
+                    },
+                  }}
                 />
               </Flex>
             </>
